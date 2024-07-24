@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Site Genesis</title>
+</head>
+<body>
+    <h1>What should the web page be about?</h1>
+    <form action="" method="post">
+        <input type="text" name="prompt" placeholder="Enter a prompt">
+        <input type="submit" value="Submit">
+    </form>
+
+    {% if prompt %}
+    <p>Prompt: {{ prompt }}</p>
+    {% endif %}
+    
+    {% if stream %}  
+    <p>Stream: {{ stream }}</p>
+    <p><a href="{{ url_for('generated') }}">Generated Page</a></p>
+    {% endif %}
+    
+    
+    <!-- <div id="stream"></div> -->
+
+    <!-- <script>
+        var stream = null;
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/', true);
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                stream = xhr.responseText.split('\n');
+                var streamDiv = document.getElementById('stream');
+                for (var i = 0; i < stream.length; i++) {
+                    streamDiv.innerHTML += '<p>' + stream[i] + '</p>';
+                }
+            }
+        };
+        xhr.send();
+    </script> -->
+</body>
+</html>
