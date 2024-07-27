@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>GROQ API Response</title>
+  </head>
+  <body>
+    <h1>GROQ API Response</h1>
+    <div id="response"></div>
+    <script>
+      const responseElement = document.getElementById('response');
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', '/groq', true);
+      xhr.onprogress = function(event) {
+        if (event.lengthComputable) {
+          const progress = Math.round((event.loaded / event.total) * 100);
+          console.log(`Progress: ${progress}%`);
+        }
+      };
+      xhr.onload = function() {
+        if (xhr.status === 200) {
+          const responseText = xhr.responseText;
+          responseElement.innerHTML = responseText;
+        } else {
+          responseElement.innerHTML = 'Error: ' + xhr.statusText;
+        }
+      };
+      xhr.send();
+    </script>
+  </body>
+</html>
