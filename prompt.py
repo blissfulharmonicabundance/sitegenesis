@@ -32,7 +32,7 @@ def index():
     stream = ''
     output = ''
     if request.method == 'POST':
-        prompt = 'Generate a properly formatted html page about ' + request.form['prompt'] + ' with nice CSS formating, and a related, animated SVG. Use related, uncopyrighted images from the internet. The output should be an HTML file with the CSS included in the HTML. Always put this snippet inside the <head> tag <link rel=\"shortcut icon\" href=\"{{ url_for(\'static\', filename=\'favicon.svg\') }}\">'    
+        prompt = 'Generate a properly formatted html page with text about ' + request.form['prompt'] + ' with nice CSS formating, and a related, animated SVG. Use related, uncopyrighted images from the internet. The output should be an HTML file with the CSS included in the HTML. Always put this snippet inside the <head> tag <link rel=\"shortcut icon\" href=\"{{ url_for(\'static\', filename=\'favicon.svg\') }}\">'    
         
         try:
             stream = groq_client.chat.completions.create(
@@ -40,7 +40,12 @@ def index():
                     "role": "user",
                     "content": prompt,
                 }],
-                model="llama-3.1-8b-instant",
+                #model="llama-3.1-8b-instant",
+                model="llama-3.1-70b-versatile",
+                max_tokens=2048,
+                temperature=0.43,
+                top_p=1,
+                stream=False
             )
             output = stream.choices[0].message.content
             output = remove_markdown(output)
